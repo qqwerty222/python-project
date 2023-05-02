@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Report{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <article class="post">
+        <header> 
+            <div>
+                <h1> Company/month </h1>
+            </div>
+        </header>
+        <p class="body"> 
+            <table style="width:90%"">
+                <tr> 
+                    <th> Teams </th>
+                    <th> Workers </th>
+                    <th> Tasks received </th>
+                    <th> Tasks in progress </th>
+                    <th> Tasks finished </th>
+                    <th> Tasks coverage </th>
+                </tr>
+                <tr>
+                    <td> {{ company['size']}} </td>
+                    <td> {{ company['workers']}} </td>
+                    <td> {{ company['tasks']['received'] }}     </td>
+                    <td> {{ company['tasks']['in_progress'] }}  </td>
+                    <td> {{ company['tasks']['finished'] }}     </td>
+                    <td> {{ company['tasks']['coverage(%)'] }}% </td>
+                </tr>
+            </table>
+        </p>
+    </article>
+    <hr>
+    <article class="post">
+        <header> 
+            <div>
+                <h1> Teams/month </h1>
+            </div>
+        </header>
+        <p class="body"> 
+            <table style="width:90%"">
+                <tr> 
+                    <th> Team               </th>
+                    <th> Size               </th>
+                    <th> Tasks received     </th>
+                    <th> Tasks in progress </th>
+                    <th> Tasks finished     </th>
+                    <th> Tasks coverage     </th>
+                </tr>
+
+
+                {% for team in teams.values() %}
+                    <tr>
+                        <td> {{ team['name'] }}                 </td>
+                        <td> {{ team['size'] }}                 </td>
+                        <td> {{ team['tasks']['received'] }}    </td>
+                        <td> {{ team['tasks']['in_progress'] }} </td>
+                        <td> {{ team['tasks']['finished'] }}    </td>
+                        <td> {{ team['tasks']['coverage(%)'] }}%</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </p>
+    </article>
+
+    <hr>
+    <article class="post">
+        <header> 
+            <div>
+                <h1> Workers/month </h1>
+            </div>
+        </header>
+        <p class="body"> 
+            <table style="width:90%"">
+                <tr> 
+                    <th> Name               </th>
+                    <th> Team               </th>
+                    <th> Tasks received     </th>
+                    <th> Tasks in progress </th>
+                    <th> Tasks finished     </th>
+                    <th> Tasks coverage     </th>
+                </tr>
+
+
+                {% for worker in workers.values() %}
+                    <tr>
+                        <td> {{ worker['name'] }}                 </td>
+                        <td> {{ worker['team'] }}                 </td>
+                        <td> {{ worker['tasks_received'] }}       </td>
+                        <td> {{ worker['tasks_in_progress'] }}    </td>
+                        <td> {{ worker['tasks_finished'] }}       </td>
+                        <td> {{ worker['tasks_coverage(%)'] }}%  </td>
+                      
+                    </tr>
+                {% endfor %}
+            </table>
+        </p>
+    </article>
+{% endblock %}
