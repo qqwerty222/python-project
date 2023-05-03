@@ -5,9 +5,9 @@ from flask import g, current_app
 def get_db():
     if 'db' not in g:
         g.db = pymysql.connect(
-            host="db",
-            user="website",
-            password="website_pass",
+            host="172.17.0.2",
+            user="api",
+            password="api_pass",
             database="company",
             cursorclass=pymysql.cursors.DictCursor
         )
@@ -38,7 +38,6 @@ def db_data_workers():
     #       tasks_received: 30
     #       tasks_in_progress: 10
     #       tasks_finished: 20
-    #       tasks_coverage(%): 77.0
     #       }
     #   }   
     # }
@@ -63,7 +62,6 @@ def db_data_teams():
     teams_ = {}
     # {
     #   lemon: {
-    #       name: lemon
     #       size: 3
     #       workers: [
     #           "frank",
@@ -91,16 +89,13 @@ def db_data_teams():
             teams_[f"{worker['team']}"]['workers'] = [f"{worker['name']}"]
             # {'lemon': { ..., size: 1}}
             teams_[f"{worker['team']}"]['size'] = 1
-       
+
             # {'lemon': { ..., tasks: {received: 30, ..., coverage: 50%}}}
             teams_[f"{worker['team']}"]['tasks'] = { 
                 'received':     worker['tasks_received'],
                 'in_progress':  worker['tasks_in_progress'],
                 'finished':     worker['tasks_finished'],
                 }
-
-            # {'lemon': { name: 'lemon'}} # workaround for jinja template parsing
-            teams_[f"{worker['team']}"]['name'] = f"{worker['team']}"
 
         else:
             teams_[f"{worker['team']}"]['workers'].append(f"{worker['name']}")
@@ -123,13 +118,10 @@ def db_data_company():
     # {
     #   teams: 3
     #   workers:15
-    #   tasks: {
-    #       tasks_received: 150
-    #       tasks_in_progress: 30
-    #       tasks_finished: 120
-    #       tasks_covered(%): 80
-    #   }
-    # }
+    #   tasks_received: 150
+    #   tasks_in_progress: 30
+    #   tasks_finished: 120
+    #   tasks_covered(%): 80
 
     company_['size']    = len(db_data_teams())
     company_['workers'] = 0 

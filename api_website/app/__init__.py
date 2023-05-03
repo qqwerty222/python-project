@@ -13,6 +13,10 @@ def create_app():
     def welcome():
         return "Ok!"
 
+    from . import index
+    app.register_blueprint(index.bp)
+    app.add_url_rule('/', endpoint='index')
+
     from . import workers
     app.register_blueprint(workers.bp)
 
