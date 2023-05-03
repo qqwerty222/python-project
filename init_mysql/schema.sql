@@ -1,11 +1,8 @@
 CREATE DATABASE company;
 USE company;
 
-CREATE USER 'api'@'%' IDENTIFIED BY 'api_pass';
-GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES ON company.workers TO 'api'@'%';
-
-CREATE USER 'website'@'%' IDENTIFIED BY 'website_pass';
-GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES ON company.workers TO 'website'@'%';
+CREATE USER 'ApiWebsite'@'%' IDENTIFIED BY 'password';
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES ON company.workers TO 'ApiWebsite'@'%';
 FLUSH PRIVILEGES;
 
 CREATE TABLE workers(

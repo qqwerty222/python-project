@@ -1,13 +1,14 @@
 import pymysql
+import os 
 
 from flask import g, current_app
 
 def get_db():
     if 'db' not in g:
         g.db = pymysql.connect(
-            host="172.17.0.2",
-            user="api",
-            password="api_pass",
+            host=os.environ.get('DB_HOST'),
+            user=os.environ.get('DB_USER'),
+            password=os.environ.get('DB_PASS'),
             database="company",
             cursorclass=pymysql.cursors.DictCursor
         )

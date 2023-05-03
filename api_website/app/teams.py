@@ -14,7 +14,7 @@ def return_all():
 # /api/team/banana
 @bp.route('/<string:name>')
 def return_one(name):
-    return jsonify(db_data_teams()[f'{name}'])
+    return jsonify(db_data_teams()[f"{name}"])
 
 # /api/team/banana/tasks
 @bp.route('/<string:name>/<string:value>')
